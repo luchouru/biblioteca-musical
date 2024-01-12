@@ -4,6 +4,8 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.mycompany.biblioteca.musical.logica.Banda</class>
     <class>com.mycompany.biblioteca.musical.logica.Disco</class>
+    <class>com.mycompany.biblioteca.musical.logica.Genero</class>
+    <class>com.mycompany.biblioteca.musical.logica.Pais</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/biblioteca_musical?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

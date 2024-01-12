@@ -15,23 +15,25 @@ public class Disco implements Serializable {
     private int id;
     private String nombre;
     private int anio;
-    private String genero;
     private int calificacion;
     @ManyToOne
     @JoinColumn(name = "fk_autor")
     private Banda autor;
+    @ManyToOne
+    @JoinColumn(name = "fk_genero")
+    private Genero genero;
 
     public Disco() {
     }
 
-    public Disco(int id, String nombre, int anio, String genero, int calificacion, Banda autor) {
+    public Disco(int id, String nombre, int anio, int calificacion, Banda autor, Genero genero) {
         this.id = id;
         this.nombre = nombre;
         this.anio = anio;
-        this.genero = genero;
         this.calificacion = calificacion;
         this.autor = autor;
-    }
+        this.genero = genero;
+    } 
 
     public int getId() {
         return id;
@@ -47,14 +49,6 @@ public class Disco implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
     }
 
     public int getCalificacion() {
@@ -80,9 +74,14 @@ public class Disco implements Serializable {
     public void setAnio(int anio) {
         this.anio = anio;
     }
-    
-    
-    
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }    
     
     
 }

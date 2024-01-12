@@ -44,17 +44,32 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="11" max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="btnAddBanda" alignment="0" pref="162" max="32767" attributes="0"/>
-                      <Component id="btnAddDisco" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnVerDiscos" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="btnPais" min="-2" pref="162" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnGenero" min="-2" pref="162" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="btnVerDiscos1" min="-2" pref="162" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnGeneros" min="-2" pref="162" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="btnAddBanda" min="-2" pref="162" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnAddDisco" min="-2" pref="162" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -63,13 +78,22 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" pref="54" max="-2" attributes="0"/>
-                  <EmptySpace pref="56" max="32767" attributes="0"/>
-                  <Component id="btnAddBanda" min="-2" pref="49" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                  <Component id="btnAddDisco" min="-2" pref="49" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                  <Component id="btnVerDiscos" min="-2" pref="49" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <EmptySpace pref="66" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnAddBanda" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
+                      <Component id="btnAddDisco" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnVerDiscos1" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
+                      <Component id="btnGeneros" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnGenero" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                      <Component id="btnPais" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -91,12 +115,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddDiscoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnVerDiscos">
+        <Component class="javax.swing.JButton" name="btnGeneros">
           <Properties>
-            <Property name="text" type="java.lang.String" value="VER DISCOS"/>
+            <Property name="text" type="java.lang.String" value="FILTRAR GENEROS"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerDiscosActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerosActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAddBanda">
@@ -105,6 +129,30 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddBandaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnVerDiscos1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="VER BANDAS"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerDiscos1ActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnGenero">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="AGREGAR GENERO"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGeneroActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnPais">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="AGREGAR PAIS"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPaisActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

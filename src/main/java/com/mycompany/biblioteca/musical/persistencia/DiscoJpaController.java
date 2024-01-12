@@ -8,6 +8,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import com.mycompany.biblioteca.musical.logica.Banda;
 import com.mycompany.biblioteca.musical.logica.Disco;
+import com.mycompany.biblioteca.musical.logica.Genero;
 import com.mycompany.biblioteca.musical.persistencia.exceptions.NonexistentEntityException;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -22,7 +23,7 @@ public class DiscoJpaController implements Serializable {
     }
     private EntityManagerFactory emf = null;
     
-    public DiscoJpaController(){
+    public DiscoJpaController() {
         emf = Persistence.createEntityManagerFactory("biblioMusicalPU");
     }
 
@@ -40,10 +41,19 @@ public class DiscoJpaController implements Serializable {
                 autor = em.getReference(autor.getClass(), autor.getId());
                 disco.setAutor(autor);
             }
+            Genero genero = disco.getGenero();
+            if (genero != null) {
+                genero = em.getReference(genero.getClass(), genero.getId());
+                disco.setGenero(genero);
+            }
             em.persist(disco);
             if (autor != null) {
                 autor.getDiscografia().add(disco);
                 autor = em.merge(autor);
+            }
+            if (genero != null) {
+                genero.getListaDiscos().add(disco);
+                genero = em.merge(genero);
             }
             em.getTransaction().commit();
         } finally {
@@ -61,9 +71,15 @@ public class DiscoJpaController implements Serializable {
             Disco persistentDisco = em.find(Disco.class, disco.getId());
             Banda autorOld = persistentDisco.getAutor();
             Banda autorNew = disco.getAutor();
+            Genero generoOld = persistentDisco.getGenero();
+            Genero generoNew = disco.getGenero();
             if (autorNew != null) {
                 autorNew = em.getReference(autorNew.getClass(), autorNew.getId());
                 disco.setAutor(autorNew);
+            }
+            if (generoNew != null) {
+                generoNew = em.getReference(generoNew.getClass(), generoNew.getId());
+                disco.setGenero(generoNew);
             }
             disco = em.merge(disco);
             if (autorOld != null && !autorOld.equals(autorNew)) {
@@ -73,6 +89,14 @@ public class DiscoJpaController implements Serializable {
             if (autorNew != null && !autorNew.equals(autorOld)) {
                 autorNew.getDiscografia().add(disco);
                 autorNew = em.merge(autorNew);
+            }
+            if (generoOld != null && !generoOld.equals(generoNew)) {
+                generoOld.getListaDiscos().remove(disco);
+                generoOld = em.merge(generoOld);
+            }
+            if (generoNew != null && !generoNew.equals(generoOld)) {
+                generoNew.getListaDiscos().add(disco);
+                generoNew = em.merge(generoNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -107,6 +131,11 @@ public class DiscoJpaController implements Serializable {
             if (autor != null) {
                 autor.getDiscografia().remove(disco);
                 autor = em.merge(autor);
+            }
+            Genero genero = disco.getGenero();
+            if (genero != null) {
+                genero.getListaDiscos().remove(disco);
+                genero = em.merge(genero);
             }
             em.remove(disco);
             em.getTransaction().commit();

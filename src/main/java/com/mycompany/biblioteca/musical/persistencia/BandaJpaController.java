@@ -1,4 +1,3 @@
-
 package com.mycompany.biblioteca.musical.persistencia;
 
 import com.mycompany.biblioteca.musical.logica.Banda;
@@ -7,6 +6,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import com.mycompany.biblioteca.musical.logica.Pais;
 import com.mycompany.biblioteca.musical.logica.Disco;
 import com.mycompany.biblioteca.musical.persistencia.exceptions.NonexistentEntityException;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class BandaJpaController implements Serializable {
     }
     private EntityManagerFactory emf = null;
     
-    public BandaJpaController(){
+    public BandaJpaController() {
         emf = Persistence.createEntityManagerFactory("biblioMusicalPU");
     }
 
@@ -39,6 +39,11 @@ public class BandaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Pais nacionalidad = banda.getNacionalidad();
+            if (nacionalidad != null) {
+                nacionalidad = em.getReference(nacionalidad.getClass(), nacionalidad.getId());
+                banda.setNacionalidad(nacionalidad);
+            }
             List<Disco> attachedDiscografia = new ArrayList<Disco>();
             for (Disco discografiaDiscoToAttach : banda.getDiscografia()) {
                 discografiaDiscoToAttach = em.getReference(discografiaDiscoToAttach.getClass(), discografiaDiscoToAttach.getId());
@@ -46,6 +51,10 @@ public class BandaJpaController implements Serializable {
             }
             banda.setDiscografia(attachedDiscografia);
             em.persist(banda);
+            if (nacionalidad != null) {
+                nacionalidad.getListaBandas().add(banda);
+                nacionalidad = em.merge(nacionalidad);
+            }
             for (Disco discografiaDisco : banda.getDiscografia()) {
                 Banda oldAutorOfDiscografiaDisco = discografiaDisco.getAutor();
                 discografiaDisco.setAutor(banda);
@@ -69,8 +78,14 @@ public class BandaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Banda persistentBanda = em.find(Banda.class, banda.getId());
+            Pais nacionalidadOld = persistentBanda.getNacionalidad();
+            Pais nacionalidadNew = banda.getNacionalidad();
             List<Disco> discografiaOld = persistentBanda.getDiscografia();
             List<Disco> discografiaNew = banda.getDiscografia();
+            if (nacionalidadNew != null) {
+                nacionalidadNew = em.getReference(nacionalidadNew.getClass(), nacionalidadNew.getId());
+                banda.setNacionalidad(nacionalidadNew);
+            }
             List<Disco> attachedDiscografiaNew = new ArrayList<Disco>();
             for (Disco discografiaNewDiscoToAttach : discografiaNew) {
                 discografiaNewDiscoToAttach = em.getReference(discografiaNewDiscoToAttach.getClass(), discografiaNewDiscoToAttach.getId());
@@ -79,6 +94,14 @@ public class BandaJpaController implements Serializable {
             discografiaNew = attachedDiscografiaNew;
             banda.setDiscografia(discografiaNew);
             banda = em.merge(banda);
+            if (nacionalidadOld != null && !nacionalidadOld.equals(nacionalidadNew)) {
+                nacionalidadOld.getListaBandas().remove(banda);
+                nacionalidadOld = em.merge(nacionalidadOld);
+            }
+            if (nacionalidadNew != null && !nacionalidadNew.equals(nacionalidadOld)) {
+                nacionalidadNew.getListaBandas().add(banda);
+                nacionalidadNew = em.merge(nacionalidadNew);
+            }
             for (Disco discografiaOldDisco : discografiaOld) {
                 if (!discografiaNew.contains(discografiaOldDisco)) {
                     discografiaOldDisco.setAutor(null);
@@ -124,6 +147,11 @@ public class BandaJpaController implements Serializable {
                 banda.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The banda with id " + id + " no longer exists.", enfe);
+            }
+            Pais nacionalidad = banda.getNacionalidad();
+            if (nacionalidad != null) {
+                nacionalidad.getListaBandas().remove(banda);
+                nacionalidad = em.merge(nacionalidad);
             }
             List<Disco> discografia = banda.getDiscografia();
             for (Disco discografiaDisco : discografia) {

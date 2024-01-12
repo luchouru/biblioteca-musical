@@ -2,6 +2,8 @@
 package com.mycompany.biblioteca.musical.igu;
 
 import com.mycompany.biblioteca.musical.logica.Controladora;
+import com.mycompany.biblioteca.musical.logica.Pais;
+import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -23,12 +25,17 @@ public class AgregarBanda extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtNombreBanda = new javax.swing.JTextField();
-        txtPais = new javax.swing.JTextField();
         btnLImpiar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
+        cmbPais = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
         jLabel1.setText("AGREGAR BANDA");
@@ -43,13 +50,6 @@ public class AgregarBanda extends javax.swing.JFrame {
         txtNombreBanda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreBandaActionPerformed(evt);
-            }
-        });
-
-        txtPais.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtPais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPaisActionPerformed(evt);
             }
         });
 
@@ -89,7 +89,7 @@ public class AgregarBanda extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtPais))
+                                .addComponent(cmbPais, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -116,7 +116,7 @@ public class AgregarBanda extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLImpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -143,13 +143,10 @@ public class AgregarBanda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreBandaActionPerformed
 
-    private void txtPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPaisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPaisActionPerformed
-
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
         String nombre = txtNombreBanda.getText();
-        String pais = txtPais.getText();
+        String pais = (String) cmbPais.getSelectedItem();
         
         control.agregarBanda(nombre,pais);
         
@@ -157,14 +154,20 @@ public class AgregarBanda extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnLImpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLImpiarActionPerformed
-        txtNombreBanda.setText("");
-        txtPais.setText("");
-        
+        txtNombreBanda.setText("");        
     }//GEN-LAST:event_btnLImpiarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        List<Pais> listaPaises = control.traerPaises();
+        if(listaPaises != null){
+            for(Pais actual : listaPaises)
+                cmbPais.addItem(actual.getNombre());
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     public void mostrarMensaje(String mensaje, String tipo, String titulo){
         JOptionPane optionPane = new JOptionPane(mensaje);
@@ -183,11 +186,11 @@ public class AgregarBanda extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLImpiar;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox<String> cmbPais;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtNombreBanda;
-    private javax.swing.JTextField txtPais;
     // End of variables declaration//GEN-END:variables
 }

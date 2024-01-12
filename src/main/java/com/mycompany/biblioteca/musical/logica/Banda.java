@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -14,17 +16,19 @@ public class Banda implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nombre;
-    private String pais;
+    @ManyToOne
+    @JoinColumn(name = "fk_nacionalidad")
+    private Pais nacionalidad;
     @OneToMany (mappedBy = "autor")
     private List <Disco> discografia;
 
     public Banda() {
     }
 
-    public Banda(int id, String nombre, String pais, List<Disco> discografia) {
+    public Banda(int id, String nombre, Pais nacionalidad, List<Disco> discografia) {
         this.id = id;
         this.nombre = nombre;
-        this.pais = pais;
+        this.nacionalidad = nacionalidad;
         this.discografia = discografia;
     }
 
@@ -44,14 +48,6 @@ public class Banda implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getPais() {
-        return pais;
-    }
-
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
     public List<Disco> getDiscografia() {
         return discografia;
     }
@@ -59,6 +55,16 @@ public class Banda implements Serializable {
     public void setDiscografia(List<Disco> discografia) {
         this.discografia = discografia;
     }
+
+    public Pais getNacionalidad() {
+        return nacionalidad;
+    }
+
+    public void setNacionalidad(Pais nacionalidad) {
+        this.nacionalidad = nacionalidad;
+    }
+    
+    
     
     
 }

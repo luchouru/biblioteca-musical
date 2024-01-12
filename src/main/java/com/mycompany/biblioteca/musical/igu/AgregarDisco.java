@@ -3,6 +3,7 @@ package com.mycompany.biblioteca.musical.igu;
 
 import com.mycompany.biblioteca.musical.logica.Banda;
 import com.mycompany.biblioteca.musical.logica.Controladora;
+import com.mycompany.biblioteca.musical.logica.Genero;
 import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -32,14 +33,14 @@ public class AgregarDisco extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtNombreDisco = new javax.swing.JTextField();
-        txtGenero = new javax.swing.JTextField();
-        txtCalificacion = new javax.swing.JTextField();
         txtAnio = new javax.swing.JTextField();
         cmbBanda = new javax.swing.JComboBox<>();
         btnLimpiar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        cmbGenero = new javax.swing.JComboBox<>();
+        cmbCalificacion = new javax.swing.JComboBox<>();
 
         jButton3.setText("jButton1");
 
@@ -69,15 +70,6 @@ public class AgregarDisco extends javax.swing.JFrame {
         txtNombreDisco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreDiscoActionPerformed(evt);
-            }
-        });
-
-        txtGenero.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-
-        txtCalificacion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtCalificacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCalificacionActionPerformed(evt);
             }
         });
 
@@ -114,6 +106,8 @@ public class AgregarDisco extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel6.setText("Banda:");
 
+        cmbCalificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,10 +128,12 @@ public class AgregarDisco extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtCalificacion, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
-                                    .addComponent(txtGenero, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbGenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(cmbCalificacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(134, 134, 134)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnLimpiar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -169,15 +165,15 @@ public class AgregarDisco extends javax.swing.JFrame {
                         .addComponent(txtAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(txtCalificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(cmbCalificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -200,10 +196,6 @@ public class AgregarDisco extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCalificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCalificacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCalificacionActionPerformed
-
     private void txtAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnioActionPerformed
@@ -219,23 +211,28 @@ public class AgregarDisco extends javax.swing.JFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         txtNombreDisco.setText("");
         txtAnio.setText("");
-        txtGenero.setText("");
-        txtCalificacion.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        List <Banda> listaBandas = control.traerBandas();
+        List<Banda> listaBandas = control.traerBandas();
         if(listaBandas != null){
             for(Banda actual : listaBandas)
                 cmbBanda.addItem(actual.getNombre());
         }
+        
+        List<Genero> listaGeneros = control.traerGeneros();
+        if(listaGeneros != null){
+            for(Genero actual : listaGeneros)
+                cmbGenero.addItem(actual.getNombre());
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
         String nombre = txtNombreDisco.getText();
-        String genero = txtGenero.getText();
+        String genero = (String) cmbGenero.getSelectedItem();
         int anio = Integer.parseInt(String.valueOf(txtAnio.getText()));
-        int calificacion = Integer.parseInt(String.valueOf(txtCalificacion.getText()));
+        int calificacion = Integer.parseInt(String.valueOf(cmbCalificacion.getSelectedItem()));
         String banda = (String) cmbBanda.getSelectedItem();
         
         control.agregarDisco(nombre,genero,anio,calificacion,banda);
@@ -263,6 +260,8 @@ public class AgregarDisco extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbBanda;
+    private javax.swing.JComboBox<String> cmbCalificacion;
+    private javax.swing.JComboBox<String> cmbGenero;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -272,8 +271,6 @@ public class AgregarDisco extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtAnio;
-    private javax.swing.JTextField txtCalificacion;
-    private javax.swing.JTextField txtGenero;
     private javax.swing.JTextField txtNombreDisco;
     // End of variables declaration//GEN-END:variables
 }
