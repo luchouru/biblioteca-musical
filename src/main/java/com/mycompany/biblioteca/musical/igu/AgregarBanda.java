@@ -9,10 +9,11 @@ import javax.swing.JOptionPane;
 
 
 public class AgregarBanda extends javax.swing.JFrame {
-    Controladora control = new Controladora();
+    Controladora control;
     
-    public AgregarBanda() {
+    public AgregarBanda(Controladora control) {
         initComponents();
+        this.control = control;
     }
 
     
@@ -147,10 +148,17 @@ public class AgregarBanda extends javax.swing.JFrame {
         
         String nombre = txtNombreBanda.getText();
         String pais = (String) cmbPais.getSelectedItem();
+        boolean existe = control.existeNombreBanda(nombre);
         
-        control.agregarBanda(nombre,pais);
+        if(nombre.isBlank())
+            mostrarMensaje("No ingreso un nombre para la banda", "Error", "Error");
+        else if(existe){
+            mostrarMensaje("Existe banda con es nombre, agregue un distintivo", "Error", "Error");
+        }else{
+            control.agregarBanda(nombre,pais);        
+            mostrarMensaje("Banda agregada correctamente", "Info", "Exito");
+        }
         
-        mostrarMensaje("Banda agregada correctamente", "Info", "Exito");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnLImpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLImpiarActionPerformed

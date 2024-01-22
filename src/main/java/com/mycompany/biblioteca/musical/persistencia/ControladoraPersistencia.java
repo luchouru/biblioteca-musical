@@ -42,5 +42,9 @@ public class ControladoraPersistencia {
         return generoController.findGeneroEntities();
     }
 
+    public Banda traerBandaBD(int id) {
+        return bandaController.findBanda(id);
+    }
+
 
 }

@@ -1,13 +1,16 @@
 package com.mycompany.biblioteca.musical.igu;
 import com.mycompany.biblioteca.musical.logica.Controladora;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 
 public class AgregarPais extends javax.swing.JFrame {
 
-    Controladora control = new Controladora();
+    Controladora control;
     
-    public AgregarPais() {
+    public AgregarPais(Controladora control) {
         initComponents();
+        this.control = control;
     }
 
     
@@ -88,10 +91,31 @@ public class AgregarPais extends javax.swing.JFrame {
 
     private void btbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbGuardarActionPerformed
         String nombre = txtNombre.getText();
+        boolean existe = control.paisExiste(nombre);
         
-        control.agregarPais(nombre);
+        if(nombre.isBlank())
+            mostrarMensaje("El nombre esta en blanco", "Error", "Error");
+        else if(existe)
+            mostrarMensaje("El nombre de pais ya esta registrado", "Error", "Error");
+        else{
+            control.agregarPais(nombre);
+            mostrarMensaje("Pais registrado", "Info", "Exito");
+        }
+        
     }//GEN-LAST:event_btbGuardarActionPerformed
-
+    
+    public void mostrarMensaje(String mensaje, String tipo, String titulo){
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if(tipo.equals("Info")){
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(tipo.equals("Error")){
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

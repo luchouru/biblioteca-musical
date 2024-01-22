@@ -1,6 +1,7 @@
 
 package com.mycompany.biblioteca.musical.igu;
 
+import com.mycompany.biblioteca.musical.logica.Banda;
 import com.mycompany.biblioteca.musical.logica.Controladora;
 import com.mycompany.biblioteca.musical.logica.Disco;
 import java.util.List;
@@ -10,12 +11,12 @@ import javax.swing.table.DefaultTableModel;
 public class PantallaDiscos extends javax.swing.JFrame {
     
     Controladora control;
-    String nombreBanda;
+    int id;
     
-    public PantallaDiscos(Controladora control, String nombreBanda) {       
+    public PantallaDiscos(Controladora control, int id) {       
         initComponents();
         this.control = control;
-        this.nombreBanda = nombreBanda;
+        this.id = id;
     }
 
     
@@ -111,8 +112,8 @@ public class PantallaDiscos extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         cargarTabla();
-        
-        txtNombreBanda.setText(nombreBanda);
+        Banda banda = control.traerBanda(id);
+        txtNombreBanda.setText(banda.getNombre());
     }//GEN-LAST:event_formWindowOpened
 
     
@@ -136,7 +137,7 @@ public class PantallaDiscos extends javax.swing.JFrame {
         String titulos[] = {"Nombre", "Anio", "Genero", "Calificacion"};
         modeloTabla.setColumnIdentifiers(titulos);
         
-        List<Disco> listaDiscos = control.traerDiscos(nombreBanda);
+        List<Disco> listaDiscos = control.traerDiscos(id);
         
         if(listaDiscos != null){
             for(Disco actual : listaDiscos){

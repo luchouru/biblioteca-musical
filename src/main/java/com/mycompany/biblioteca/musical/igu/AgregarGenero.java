@@ -2,14 +2,17 @@
 package com.mycompany.biblioteca.musical.igu;
 
 import com.mycompany.biblioteca.musical.logica.Controladora;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 
 public class AgregarGenero extends javax.swing.JFrame {
 
-    Controladora control = new Controladora();
+    Controladora control;
     
-    public AgregarGenero() {
+    public AgregarGenero(Controladora control) {
         initComponents();
+        this.control = control;
     }
 
     
@@ -121,11 +124,31 @@ public class AgregarGenero extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         String nombre = txtNombre.getText();
         String descripcion = txtDescripcion.getText();
+        boolean existe = control.existeGeneroNombre(nombre);
         
-        control.agregarGenero(nombre,descripcion);
+        if(nombre.isBlank())
+            mostrarMensaje("El campo esta en blanco", "Error", "Error");
+        else if(existe){
+            mostrarMensaje("Genero ya existe", "Error", "Error");        
+        }else{
+            control.agregarGenero(nombre,descripcion);
+            mostrarMensaje("Genero agregado correctamente", "Info", "Exito");
+        }
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    
+    public void mostrarMensaje(String mensaje, String tipo, String titulo){
+        JOptionPane optionPane = new JOptionPane(mensaje);
+        if(tipo.equals("Info")){
+            optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if(tipo.equals("Error")){
+            optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = optionPane.createDialog(titulo);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;

@@ -14,8 +14,7 @@ public class Controladora {
         Banda nueva = new Banda();
         nueva.setNombre(nombre);
         
-        Pais encontrado = new Pais();
-        encontrado = this.encontrarPais(pais);
+        Pais encontrado = this.encontrarPais(pais);
         if(encontrado != null)
             nueva.setNacionalidad(encontrado);
         
@@ -23,10 +22,8 @@ public class Controladora {
     }
 
     public List<Banda> traerBandas() {
-        List<Banda> listaBandas = controlPersis.traerBandasBD();
-        
-        Comparator<Banda> comparadorPorNombre = Comparator.comparing(Banda::getNombre);
-        
+        List<Banda> listaBandas = controlPersis.traerBandasBD();       
+        Comparator<Banda> comparadorPorNombre = Comparator.comparing(Banda::getNombre);       
         Collections.sort(listaBandas, comparadorPorNombre);
         
         return listaBandas;
@@ -38,13 +35,11 @@ public class Controladora {
         nuevo.setAnio(anio);
         nuevo.setCalificacion(calificacion);
         
-        Banda encontrada = new Banda();
-        encontrada = this.encontrarBanda(banda);
+        Banda encontrada = this.encontrarBanda(banda);
         if(encontrada != null)
             nuevo.setAutor(encontrada);
         
-        Genero encontrado = new Genero();
-        encontrado = this.encontrarGenero(genero);
+        Genero encontrado = this.encontrarGenero(genero);
         if(encontrado != null)
             nuevo.setGenero(encontrado);
         
@@ -62,14 +57,11 @@ public class Controladora {
         return null;
     }
 
-    public List<Disco> traerDiscos(String nombreBanda) {
-        Banda encontrada = new Banda();
-        encontrada = this.encontrarBanda(nombreBanda);
+    public List<Disco> traerDiscos(int id) {
+        Banda encontrada = this.traerBanda(id);
         
-        List<Disco> listaDiscos = encontrada.getDiscografia();
-        
-        Comparator<Disco> comparadorPorAnio = Comparator.comparingInt(Disco::getAnio);
-        
+        List<Disco> listaDiscos = encontrada.getDiscografia();     
+        Comparator<Disco> comparadorPorAnio = Comparator.comparingInt(Disco::getAnio);       
         Collections.sort(listaDiscos, comparadorPorAnio);
         
         return listaDiscos;
@@ -122,13 +114,9 @@ public class Controladora {
     }
 
     public List<Disco> filtrarDiscos(String genero) {
-        Genero encontrado = new Genero();
-        encontrado = this.encontrarGenero(genero);
-        
+        Genero encontrado = this.encontrarGenero(genero);       
         List<Disco> listaDiscos = encontrado.getListaDiscos();
-        
-        Comparator<Disco> comparadorPorAnio = Comparator.comparingInt(Disco::getAnio);
-        
+        Comparator<Disco> comparadorPorAnio = Comparator.comparingInt(Disco::getAnio);     
         Collections.sort(listaDiscos, comparadorPorAnio);
         
         return listaDiscos;
@@ -136,16 +124,43 @@ public class Controladora {
     }
 
     public List<Banda> traerBandas(String pais) {
-        Pais encontrado = new Pais();
-        encontrado = this.encontrarPais(pais);
-        
-        List<Banda> listaBandas = encontrado.getListaBandas();
-        
-        Comparator<Banda> comparadorPorNombre = Comparator.comparing(Banda::getNombre);
-        
+        Pais encontrado = this.encontrarPais(pais);      
+        List<Banda> listaBandas = encontrado.getListaBandas();       
+        Comparator<Banda> comparadorPorNombre = Comparator.comparing(Banda::getNombre);       
         Collections.sort(listaBandas, comparadorPorNombre);
         
         return listaBandas;
+    }
+
+    public boolean paisExiste(String nombre) {
+        boolean existe = false;
+        Pais encontrado = this.encontrarPais(nombre);
+        if(encontrado != null)
+            existe = true;
+        
+        return existe;
+    }
+
+    public boolean existeNombreBanda(String nombre) {
+        boolean existe = false;
+        Banda encontrada = this.encontrarBanda(nombre);
+        if(encontrada != null)
+            existe = true;
+        
+        return existe;
+    }
+
+    public boolean existeGeneroNombre(String nombre) {
+        boolean existe = false;
+        Genero encontrado = this.encontrarGenero(nombre);
+        if(encontrado != null)
+            existe = true;
+        
+        return existe;
+    }
+
+    public Banda traerBanda(int id) {
+        return controlPersis.traerBandaBD(id);
     }
 
     

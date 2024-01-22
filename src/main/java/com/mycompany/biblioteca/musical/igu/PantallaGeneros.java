@@ -10,10 +10,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class PantallaGeneros extends javax.swing.JFrame {
 
-    Controladora control = new Controladora();
+    Controladora control;
     
-    public PantallaGeneros() {
+    public PantallaGeneros(Controladora control) {
         initComponents();
+        this.control = control;
     }
 
     

@@ -1,12 +1,12 @@
 
 package com.mycompany.biblioteca.musical.igu;
 
-//import com.mycompany.biblioteca.musical.logica.Controladora;
+import com.mycompany.biblioteca.musical.logica.Controladora;
 
 
 public class Menu extends javax.swing.JFrame {
 
-    //Controladora control = new Controladora();
+    Controladora control = new Controladora();
     
     public Menu() {
         initComponents();
@@ -137,37 +137,37 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddBandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBandaActionPerformed
-        AgregarBanda pantallaNueva = new AgregarBanda();
+        AgregarBanda pantallaNueva = new AgregarBanda(control);
         pantallaNueva.setVisible(true);
         pantallaNueva.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnAddBandaActionPerformed
 
     private void btnAddDiscoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDiscoActionPerformed
-        AgregarDisco pantallaNueva = new AgregarDisco();
+        AgregarDisco pantallaNueva = new AgregarDisco(control);
         pantallaNueva.setVisible(true);
         pantallaNueva.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnAddDiscoActionPerformed
 
     private void btnGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerosActionPerformed
-        PantallaGeneros pantallaNueva = new PantallaGeneros();
+        PantallaGeneros pantallaNueva = new PantallaGeneros(control);
         pantallaNueva.setVisible(true);
         pantallaNueva.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnGenerosActionPerformed
 
     private void btnVerDiscos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDiscos1ActionPerformed
-        PantallaBandas pantallaNueva = new PantallaBandas();
+        PantallaBandas pantallaNueva = new PantallaBandas(control);
         pantallaNueva.setVisible(true);
         pantallaNueva.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnVerDiscos1ActionPerformed
 
     private void btnPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaisActionPerformed
-        AgregarPais pantallaNueva = new AgregarPais();
+        AgregarPais pantallaNueva = new AgregarPais(control);
         pantallaNueva.setVisible(true);
         pantallaNueva.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnPaisActionPerformed
 
     private void btnGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneroActionPerformed
-        AgregarGenero pantallaNueva = new AgregarGenero();
+        AgregarGenero pantallaNueva = new AgregarGenero(control);
         pantallaNueva.setVisible(true);
         pantallaNueva.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnGeneroActionPerformed

@@ -12,11 +12,12 @@ import javax.swing.table.DefaultTableModel;
 
 public class PantallaBandas extends javax.swing.JFrame {
     
-    Controladora control = new Controladora();
+    Controladora control;
     Banda band = null;
     
-    public PantallaBandas() {
+    public PantallaBandas(Controladora control) {
         initComponents();
+        this.control = control;
     }
 
     /**
@@ -163,9 +164,9 @@ public class PantallaBandas extends javax.swing.JFrame {
 
         if(tablaBandas.getRowCount() > 0){
             if(tablaBandas.getSelectedRow() != -1){
-                String nombreBanda = (String.valueOf(tablaBandas.getValueAt(tablaBandas.getSelectedRow(), 0)));
+                int id = Integer.parseInt(String.valueOf(tablaBandas.getValueAt(tablaBandas.getSelectedRow(), 2)));
                 
-                PantallaDiscos nuevaPantalla = new PantallaDiscos(control,nombreBanda);
+                PantallaDiscos nuevaPantalla = new PantallaDiscos(control,id);
                 nuevaPantalla.setVisible(true);
                 nuevaPantalla.setLocationRelativeTo(null);
             }
